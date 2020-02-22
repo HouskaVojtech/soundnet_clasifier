@@ -23,7 +23,7 @@ def build_model():
     Builds up the SoundNet model and loads the weights from a given model file (8-layer model is kept at models/sound8.npy).
     :return:
     """
-    model_weights = np.load('sound8.npy').item()
+    model_weights = np.load('sound8.npy', allow_pickle=True).item()
     model = Sequential()
     model.add(InputLayer(batch_input_shape=(1, None, 1)))
 
@@ -131,7 +131,7 @@ def remap_family ( families ):
 def get_sound_data(files):
   data_list = []
   for file_name in files:
-    data_list.append(load_audio('../nsynth-test/audio/{}.wav'.format(file_name)))
+    data_list.append(load_audio('nsynth-test/audio/{}.wav'.format(file_name)))
   return data_list
 
 #from keras import backend as K
@@ -147,7 +147,7 @@ def getActivations(data,number_layer,model):
     return intermediate_tensor
 
 #import json
-with open("../nsynth-test/examples.json","r") as file:
+with open("nsynth-test/examples.json","r") as file:
   data = json.load(file)
 
 file_names =  list(data.keys())

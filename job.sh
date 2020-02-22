@@ -22,9 +22,9 @@ cp -r "$DATADIR/nsynth-test" "$SCRATCHDIR"
 
 cp "$DATADIR/soundnet_clasifier/sound8.npy" "$SCRATCHDIR"
 
-cp "$DATADIR/soundnet_clasifier/job.py" "$SCRATCHDIR"
+cp "$DATADIR/soundnet_clasifier/soundnet.py" "$SCRATCHDIR"
 
-python job.py
+python soundnet.py
 
 # kopirovani vysledku do DATADIR
 
