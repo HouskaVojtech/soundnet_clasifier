@@ -14,11 +14,11 @@ cd $SCRATCHDIR || exit 1
 
 # priprava vstupnich dat (kopirovani dat na vypocetni uzel)
 
-#cp -r "$DATADIR/nsynth-test" "$SCRATCHDIR"
+cp -r "$DATADIR/nsynth-test" "$SCRATCHDIR"
 
 #cp -r "$DATADIR/nsynth-valid" "$SCRATCHDIR"
 
-cp -r "$DATADIR/nsynth-train" "$SCRATCHDIR"
+#cp -r "$DATADIR/nsynth-train" "$SCRATCHDIR"
 
 cp "$DATADIR/soundnet_clasifier/sound8.npy" "$SCRATCHDIR"
 

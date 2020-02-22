@@ -131,11 +131,11 @@ def remap_family ( families ):
 def get_sound_data(files):
   data_list = []
   for file_name in files:
-    data_list.append(load_audio('../nsynth-train/audio/{}.wav'.format(file_name)))
+    data_list.append(load_audio('../nsynth-test/audio/{}.wav'.format(file_name)))
   return data_list
 
 #from keras import backend as K
-def getActivations(data,number_layer):
+def getActivations(data,number_layer,model):
     intermediate_tensor = []
     get_layer_output = K.function([model.layers[0].input],
                                   [model.layers[number_layer].output])
@@ -147,7 +147,7 @@ def getActivations(data,number_layer):
     return intermediate_tensor
 
 #import json
-with open("../nsynth-train/examples.json","r") as file:
+with open("../nsynth-test/examples.json","r") as file:
   data = json.load(file)
 
 file_names =  list(data.keys())
@@ -158,7 +158,9 @@ acoustic_family = remap_family ( acoustic_family )
 
 x_tr = np.array(get_sound_data(acoustic_data))
 
-activations = getActivations(x_tr,22)
+model = build_model()
+
+activations = getActivations(x_tr,22,model)
 x = np.asarray(activations)
 y = np.asarray(acoustic_family)
 np.save('activations.npy', x)
