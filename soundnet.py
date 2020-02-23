@@ -18,12 +18,12 @@ def load_audio(audio_file):
     audio = preprocess(audio)
     return audio
 
-def build_model():
+def build_model(weights_file):
     """
     Builds up the SoundNet model and loads the weights from a given model file (8-layer model is kept at models/sound8.npy).
     :return:
     """
-    model_weights = np.load('sound8.npy', allow_pickle=True).item()
+    model_weights = np.load(weights_file, allow_pickle=True).item()
     model = Sequential()
     model.add(InputLayer(batch_input_shape=(1, None, 1)))
 
@@ -128,10 +128,10 @@ def remap_family ( families ):
       new_data.append(7)
   return new_data
 
-def get_sound_data(files):
+def get_sound_data(prefix,files):
   data_list = []
   for file_name in files:
-    data_list.append(load_audio('nsynth-test/audio/{}.wav'.format(file_name)))
+    data_list.append(load_audio('{}{}.wav'.format(prefix,file_name)))
   return data_list
 
 #from keras import backend as K
@@ -146,8 +146,9 @@ def getActivations(data,number_layer,model):
         intermediate_tensor.append(tensor[0])
     return intermediate_tensor
 
+
 #import json
-with open("nsynth-test/examples.json","r") as file:
+with open("nsynth-train/examples.json","r") as file:
   data = json.load(file)
 
 file_names =  list(data.keys())
@@ -156,9 +157,9 @@ acoustic_data, acoustic_family = get_acoustic_instruments ( file_names )
 
 acoustic_family = remap_family ( acoustic_family )
 
-x_tr = np.array(get_sound_data(acoustic_data))
+x_tr = np.array(get_sound_data('nsynth-train/audio/',acoustic_data))
 
-model = build_model()
+model = build_model('sound8.npy')
 
 activations = getActivations(x_tr,22,model)
 x = np.asarray(activations)

@@ -28,8 +28,8 @@ python soundnet.py
 
 # kopirovani vysledku do DATADIR
 
-cp "$SCRATCHDIR/activations.npy" "$DATADIR/soundnet_clasifier"
+cp "$SCRATCHDIR/activations.npy" "$DATADIR/soundnet_clasifier/activations2.npy"
  
-cp "$SCRATCHDIR/labels.npy" "$DATADIR/soundnet_clasifier"
+cp "$SCRATCHDIR/labels.npy" "$DATADIR/soundnet_clasifier/labels2.npy"
 
 
